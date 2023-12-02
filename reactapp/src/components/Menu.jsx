@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -10,6 +9,9 @@ import {
   HelpCircleIcon,
   LogOutIcon
 } from "lucide-react"
+import { getAuth, signOut } from "firebase/auth";
+
+const auth = getAuth();
 
 const navLinks = [
   {
@@ -47,7 +49,15 @@ export const Menu = ({selection, setSelection}) => {
 
   const onLogout = () => {
     // write code for logout and clear local data as well
-    navigate("/");
+    localStorage.clear();
+
+    signOut(auth).then(() => {
+      navigate("/");
+      console.log("Signed out successfully")
+    }).catch((error) => {
+      console.log("error in logging out")
+    })
+
   }
 
   return (

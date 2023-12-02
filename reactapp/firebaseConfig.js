@@ -2,14 +2,14 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAIzlEJjCGjHyu_JZMm2TTQcuI3vk2wH88",
-    authDomain: "cropdata-f7934.firebaseapp.com",
-    databaseURL:"https://cropdata-f7934-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    projectId: "cropdata-f7934",
-    storageBucket: "cropdata-f7934.appspot.com",
-    messagingSenderId: "949185266078",
-    appId: "1:949185266078:web:d890a7a18e9ea18b30d68f",
-    measurementId: "G-FBTZX3CW6C"
+  apiKey: "AIzaSyAIzlEJjCGjHyu_JZMm2TTQcuI3vk2wH88",
+  authDomain: "cropdata-f7934.firebaseapp.com",
+  databaseURL: "https://cropdata-f7934-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "cropdata-f7934",
+  storageBucket: "cropdata-f7934.appspot.com",
+  messagingSenderId: "949185266078",
+  appId: "1:949185266078:web:d890a7a18e9ea18b30d68f",
+  measurementId: "G-FBTZX3CW6C"
 };
 
 const app = initializeApp(firebaseConfig);

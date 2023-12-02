@@ -1,13 +1,11 @@
 import { useState } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { AboutUs } from "./pages/AboutUs";
+import { LoginSignup } from "./pages/LoginSignup";
 
 function App() {
-
-  const [isLogged, setLogged] = useState(true);
 
   return (
     <div className="App">
@@ -15,14 +13,14 @@ function App() {
         
 
         <Routes>
-          <Route path="/" element={ <Home logged={isLogged} /> } />
-          <Route path="/login" element={ <Login/> } />
+          <Route path="/" element={ <Home /> } />
+          <Route path="/login" element={ <LoginSignup/> } />
           <Route path="/dashboard">
             <Route index element={<Dashboard/>}></Route>
           </Route>
           <Route path="/about" element={ <AboutUs/> }/>
 
-          <Route path="*" element={ <Home logged={isLogged}/> } />
+          <Route path="*" element={ <Home/> } />
         </Routes>
       </BrowserRouter>
     </div>

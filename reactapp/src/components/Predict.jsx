@@ -4,7 +4,9 @@ import { db } from '../../firebaseConfig';
 import { ref, push, set } from 'firebase/database';
 import { json } from "react-router-dom";
 import { jsPDF } from 'jspdf';
-
+import { autoTable } from 'jspdf-autotable';
+import { getDoc, doc ,getFirestore} from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 export const Predict = () => {
   const [prediction, setPrediction] = useState(null);
@@ -28,6 +30,30 @@ export const Predict = () => {
     console.log(data);
     setPrediction(data.prediction);
   
+    // // Fetch user data
+    // const fetchUserData = async () => {
+    //   const auth = getAuth();
+    //   const db = getFirestore();
+    //   const users = auth.currentUser;
+    //   const userId = users.uid;
+
+    //   // const userId = 'X5nuWGgWqcWCLqHT5ei7o3jN2Ts1'
+      
+    //   if (userId) {
+    //     const docRef = doc(db, 'users/', userId);
+    //     const docSnap = await getDoc(docRef);
+    //     if (docSnap.exists()) {
+    //       return docSnap.data();
+    //     } else {
+    //       console.log('No such document!');
+    //       return null;
+    //     }
+    //   }
+      
+    // };
+
+    // const userData = await fetchUserData();
+    
     // // Make another POST request to save the prediction
     // const saveResponse = await fetch('http://127.0.0.1:8000/predict/', {
     //   method: 'POST',
@@ -49,16 +75,69 @@ export const Predict = () => {
       prediction: data.prediction
     }).catch(error => console.error('Error writing to Firebase: ', error));
     
-    // Generate PDF
     const doc = new jsPDF();
-    doc.text('N: ' + N, 10, 10);
-    doc.text('P: ' + P, 10, 20);
-    doc.text('K: ' + K, 10, 30);
-    doc.text('Temperature: ' + temperature, 10, 40);
-    doc.text('Humidity: ' + humidity, 10, 50);
-    doc.text('pH: ' + ph, 10, 60);
-    doc.text('Rainfall: ' + rainfall, 10, 70);
-    doc.text('Prediction: ' + data.prediction, 10, 80);
+
+    // Add user data to PDF
+    // doc.text(`User Name: ${userData.fullName}`, 10, 10);
+    // doc.text(`User Email: ${userData.email}`, 10, 20);
+    // doc.text(`User Area: ${userData.area}`, 10, 30);
+    // doc.text(`User Country: ${userData.country}`, 10, 40);
+    // doc.text(`User Zip: ${userData.zip}`, 10, 50);
+
+    const datapdf = [
+      { parameter: 'N', value: N },
+      { parameter: 'P', value: P },
+      { parameter: 'K', value: K },
+      { parameter: 'Temperature', value: temperature },
+      { parameter: 'Humidity', value: humidity },
+      { parameter: 'pH', value: ph },
+      { parameter: 'Rainfall', value: rainfall },
+      
+    ];
+
+    const predictionpdf = [
+      { parameter: 'Prediction', value: data.prediction },
+    ];
+
+    doc.autoTable({
+      head: [['Parameter', 'Value']],
+      // prediction: [['Prediction', data.prediction]],
+      body: datapdf.map(item => [item.parameter, item.value]),
+      prediction: predictionpdf.map(item => [item.parameter, item.value]),
+      styles: { 
+        fillColor: [255, 255, 255], 
+        textColor: [0, 0, 0], 
+        fontStyle: 'bold', // Set font style to bold
+        fontSize: 14 // Set font size to 14
+      },
+      headStyles: {
+        textColor: [0, 128, 0], // Set text color of head to green
+        // Internal Padding between Parameter and Value
+      },
+      predictionStyles: {
+        textColor: [0, 128, 0], // Set text color of head to green
+      },
+      columnStyles: {
+        0: { cellWidth: 'auto' },
+        1: { cellWidth: 'auto', halign: 'right' },
+      },
+      
+    });
+
+    doc.autoTable({
+      body: predictionpdf.map(item => [item.parameter, item.value]),
+      styles: { 
+        fillColor: [255, 255, 255], 
+        textColor: [0, 128, 0], 
+        fontStyle: 'bold', // Set font style to bold
+        fontSize: 14 // Set font size to 14
+      },
+      columnStyles: {
+        0: { cellWidth: 'auto' },
+        1: { cellWidth: 'auto', halign: 'right' },
+      },
+    });
+    
     doc.save('Prediction.pdf');
 
   };
