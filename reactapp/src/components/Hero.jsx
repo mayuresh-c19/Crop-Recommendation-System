@@ -1,4 +1,4 @@
-import farmVideo from './assets/videos/farm.mp4';
+import farmVideo from '../assets/videos/farm.mp4';
 
 export const Hero = () => {
     return (

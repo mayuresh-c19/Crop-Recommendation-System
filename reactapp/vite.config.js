@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/Crop-Recommendation-System/',
   plugins: [react()],
   build: {
-    chunkSizeWarningLimit: 2000 ,// size in KB
+    chunkSizeWarningLimit: 200000.00 ,// size in KB
     outDir: 'build',
     rollupOptions: {
       output: {
