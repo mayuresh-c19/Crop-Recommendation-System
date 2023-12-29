@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// vite.config.js
 export default defineConfig({
+  base: '/Crop-Recommendation-System/',
   plugins: [react()],
   build: {
     chunkSizeWarningLimit: 2000 ,// size in KB
