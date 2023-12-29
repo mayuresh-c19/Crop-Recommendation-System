@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/logos/logo-green.png";
 
 const Navbar = ({logged}) => {
 
@@ -15,7 +16,7 @@ const Navbar = ({logged}) => {
 
       <div className="max-w-[1240px] mx-auto px-4 flex justify-between items-center h-full">
         <div>
-          <img className="w-[90px] rounded-lg" src="./src/assets/logos/logo-green.png"/>
+          <img className="w-[90px] rounded-lg" src={logo}/>
         </div>
         <div className="hidden md:flex text-green-400">
           <ul className="flex items-center">
