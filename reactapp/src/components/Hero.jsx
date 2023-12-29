@@ -1,3 +1,5 @@
+import farmVideo from './assets/videos/farm.mp4';
+
 export const Hero = () => {
     return (
       <div>
@@ -5,7 +7,7 @@ export const Hero = () => {
           <div className="w-[100%] h-full absolute bg-black opacity-30"></div>
           <video
             className="object-cover h-full w-full absolute -z-10"
-            src={"./src/assets/videos/farm.mp4"}
+            src={farmVideo}
             autoPlay
             loop
             muted
